@@ -12,7 +12,7 @@ const createBooking = function (
   price = 199 * numPassengers
 ) {
   //ES5
-  //numPassengers = numPassengers || 1; //short circuiting with OR (take the first truthy value)
+  //numPassengers ping= numPassengers || 1; //short circuiting with OR (take the first truthy value)
   //price = price || 199;
   const booking = {
     flightNum,
@@ -200,3 +200,50 @@ const addTaxRate = function (rate) {
 };
 
 const addVAT2 = addTaxRate(0.23);
+
+/*
+136. Immediately Invoked Function Expressions (IIFE)
+*/
+
+const runOnce = function () {
+  console.log("This will never run again");
+  const isPrivate = 23; //this const is encapsuled
+};
+runOnce();
+
+//console.log(isPrivate); //does not have access because it is in different scopes
+
+//IIFE
+(function () {
+  console.log("This will never run again");
+})(); // this is the IIFE
+
+(() => console.log("This will never run again"))();
+
+{
+  const isPrivate = 23;
+  var notPrivate = 46;
+}
+//console.log(isPrivate);
+console.log(notPrivate);
+
+/*
+137. Closures
+*/
+
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+
+const booker = secureBooking();
+
+booker();
+booker();
+booker();
+
+console.dir(booker);
